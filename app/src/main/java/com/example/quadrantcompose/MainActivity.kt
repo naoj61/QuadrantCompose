@@ -3,10 +3,10 @@ package com.example.quadrantcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,7 +26,6 @@ import com.example.quadrantcompose.ui.theme.QuadrantComposeTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             QuadrantComposeTheme {
                 // A surface container using the 'background' color from the theme
@@ -33,28 +33,47 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Quadrant()
+                    QuadrantApp()
                 }
             }
         }
     }
 }
-//https://github.com/naoj61/QuadrantCompose
+
 @Composable
-private fun Quadrant() {
-//    Row(Modifier.weight(1f))
-//    {
-//        Quadrant(
-//            "Text composable",
-//            "Displays text and follows the recommended Material Design guidelines.",
-//            Color(0xFFEADDFF))
-//
-//        Quadrant(
-//            "Image composable",
-//            "Creates a composable that lays out and draws a given Painter class object.",
-//            Color(0xFFD0BCFF))
-//    }
+private fun QuadrantApp() {
+    Column(Modifier.fillMaxSize()) {
+        Row(Modifier.weight(1f)) {
+            Quadrant(
+                stringResource(R.string.text_composable),
+                stringResource(R.string.displays_text_and_follows),
+                Color(0xFFEADDFF),
+                modifier = Modifier.weight(1f)
+            )
+            Quadrant(
+                stringResource(R.string.image_composable),
+                stringResource(R.string.creates_a_composable_that_lays_out),
+                Color(0xFFD0BCFF),
+                modifier = Modifier.weight(1f)
+            )
+        }
+        Row(Modifier.weight(1f)) {
+            Quadrant(
+                stringResource(R.string.row_composable),
+                stringResource(R.string.a_layout_composable_that),
+                Color(0xFFB69DF8),
+                modifier = Modifier.weight(1f)
+            )
+            Quadrant(
+                stringResource(R.string.column_composable),
+                stringResource(R.string.a_layout_composable),
+                Color(0xFFF6EDFF),
+                modifier = Modifier.weight(1f)
+            )
+        }
+    }
 }
+
 
 @Composable
 private fun Quadrant(
@@ -65,9 +84,9 @@ private fun Quadrant(
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize()
             .background(backgroundColor)
-            .padding(16.dp),
+            .padding(16.dp)
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -88,6 +107,6 @@ private fun Quadrant(
 @Composable
 fun GreetingPreview() {
     QuadrantComposeTheme {
-        Quadrant()
+        QuadrantApp()
     }
 }
